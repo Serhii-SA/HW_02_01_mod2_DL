@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "hw-01-mod2-dl"
+version = "0.1.0"
+description = ""
+authors = ["Serhii-SA <serg.a.tolstov@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+faker = "^24.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
