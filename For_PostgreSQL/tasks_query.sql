@@ -2,7 +2,10 @@
 SELECT * FROM tasks WHERE user_id = 5;
 
 -- Вибрати завдання за певним статусом (напр. 2 - in progress)
-SELECT * FROM tasks WHERE status_id = 2;
+-- SELECT * FROM tasks WHERE status_id = 2; - Змінено на варіант з підзапитом по табл.status
+SELECT * 
+FROM tasks 
+WHERE status_id = (SELECT id FROM status WHERE name = 'in progress');
 
 -- Оновити статус конкретного завдання (id - 12).
 -- Змініть статус конкретного завдання на 'in progress'
@@ -44,8 +47,9 @@ FROM tasks
 JOIN users ON tasks.user_id = users.id
 WHERE users.email LIKE '%@example.com';
 
--- Отримати список завдань, що не мають опису.
-SELECT * FROM tasks WHERE description = '';
+-- Отримати список завдань, що не мають опису або опис NULL.
+SELECT * FROM tasks WHERE description = '' OR description IS NULL;
+
 
 -- Вибрати користувачів та їхні завдання, які є у статусі 'in progress'.
 -- Використайте INNER JOIN для отримання списку користувачів та їхніх завдань
@@ -58,8 +62,8 @@ WHERE status.id = 2;
 
 -- Отримати користувачів та кількість їхніх завдань.
 -- Використайте LEFT JOIN та GROUP BY для вибору користувачів та
--- підрахунку їхніх завдань.
+-- підрахунку їхніх завдань.(змінено на GROUP BY users.id )
 SELECT users.fullname, COUNT(tasks.id) AS task_count
 FROM users
 LEFT JOIN tasks ON users.id = tasks.user_id
-GROUP BY users.fullname;
+GROUP BY users.id;
